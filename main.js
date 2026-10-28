@@ -171,7 +171,7 @@ function openStudio() {
     height: 860,
     minWidth: 1020,
     minHeight: 700,
-    title: 'Companion Studio',
+    title: '3nbr Studio',
     backgroundColor: '#F4F1EB',
     icon: path.join(__dirname, 'assets', 'icon.png'),
     autoHideMenuBar: true,
@@ -231,14 +231,13 @@ function loginOptions() {
 function buildTray() {
   if (!tray) {
     tray = new Tray(nativeImage.createFromPath(path.join(__dirname, 'assets', 'tray.png')));
-    tray.setToolTip('Companion');
+    tray.setToolTip('3nbr');
     tray.on('click', openStudio);
   }
   const lib = listLibrary();
   const startsWithWindows = app.getLoginItemSettings(loginOptions()).openAtLogin;
   tray.setContextMenu(Menu.buildFromTemplate([
-    { label: 'Open Companion Studio', click: openStudio },
-    { label: 'Import package…', click: pickAndImport },
+    { label: 'Open 3nbr Studio', click: openStudio },
     { type: 'separator' },
     ...(lib.length
       ? lib.map((c) => ({
@@ -374,7 +373,7 @@ ipcMain.on('overlay:menu', (_event, { id, actions, size, follow }) => {
     },
     { type: 'separator' },
     { label: 'Send home (hide)', click: () => deactivate(id) },
-    { label: 'Open Companion Studio', click: openStudio },
+    { label: 'Open 3nbr Studio', click: openStudio },
   ]).popup({ window: overlayWin });
 });
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Companion Studio</title>
+  <title>3nbr Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="studio.css">
 </head>
@@ -10,7 +10,7 @@
   <header class="topbar">
     <div class="brand">
       <img src="../../assets/icon.png" alt="">
-      <span>Companion Studio</span>
+      <span>3nbr Studio</span>
     </div>
     <ol class="stepper" id="stepper">
       <li data-step="1"><span class="num">1</span><span class="label">Meet 3nbr</span></li>
@@ -18,7 +18,6 @@
       <li data-step="3"><span class="num">3</span><span class="label">Movement poses</span></li>
       <li data-step="4"><span class="num">4</span><span class="label">Bring to desktop</span></li>
     </ol>
-    <button class="btn ghost small" id="btnImportPkg" title="Import a .companion file you saved earlier">Import package…</button>
   </header>
 
   <main id="main">
@@ -224,8 +223,8 @@
     <section class="step" id="step4" hidden>
       <div class="step-head">
         <p class="eyebrow">Step 4 of 4</p>
-        <h1>Bring it to the desktop</h1>
-        <p class="lede">Your Companion package is ready. Import it through the client for Windows and it appears on your desktop.</p>
+        <h1>Bring 3nbr to your desktop</h1>
+        <p class="lede">He's ready. Click Add to desktop and he'll land just above your taskbar.</p>
       </div>
       <div class="grid-final">
         <div class="card pkg-card">
@@ -234,35 +233,26 @@
             <span class="pkg-action" id="pkgAction"></span>
           </div>
           <div class="pkg-meta">
-            <p class="eyebrow">Companion package</p>
+            <p class="eyebrow">Ready</p>
             <h2 id="pkgName"></h2>
             <dl class="facts" id="pkgFacts"></dl>
             <div class="pkg-buttons">
-              <button class="btn primary big" id="btnImport">Import to desktop</button>
-              <button class="btn ghost" id="btnSave">Save .companion file…</button>
+              <button class="btn primary big" id="btnImport">Add to desktop</button>
             </div>
             <p class="success" id="importDone" hidden></p>
           </div>
         </div>
         <div class="card how-card">
           <h3>On your desktop</h3>
-          <ul class="how mode-photo">
-            <li><b>Click</b><span>a happy bounce</span></li>
-            <li><b>Double-click</b><span>a jump</span></li>
-            <li><b>Drag</b><span>pick it up and drop it anywhere</span></li>
-            <li><b>Hover</b><span>it looks at you</span></li>
-          </ul>
-          <ul class="how mode-bird">
+          <ul class="how">
             <li><b>Click</b><span>a little kiss</span></li>
             <li><b>Double-click</b><span>disco time</span></li>
             <li><b>Stroke</b><span>move the cursor back and forth over it for head pats</span></li>
             <li><b>Near the beak</b><span>feisty pecks at your cursor</span></li>
             <li><b>Typing</b><span>it types along with you</span></li>
             <li><b>Drag</b><span>pick it up; it flutters down when you let go</span></li>
-          </ul>
-          <ul class="how">
             <li><b>Right-click</b><span>size, follow my cursor, tricks</span></li>
-            <li><b>Tray icon</b><span>open Studio, import, start with Windows</span></li>
+            <li><b>Tray icon</b><span>open the Studio, start with Windows</span></li>
           </ul>
         </div>
       </div>

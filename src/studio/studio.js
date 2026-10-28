@@ -1,4 +1,4 @@
-// Companion Studio: upload -> review the look -> review poses -> bring to desktop.
+// 3nbr Studio: meet 3nbr -> review the look -> review poses -> bring to desktop.
 import { CATALOG, GROUPS, POSES, PERSONALITIES, actionAvailable } from '../shared/actions.js';
 import { RigRenderer } from '../shared/rig.js';
 import { drawEffect } from '../shared/effects.js';
@@ -108,6 +108,8 @@ function updateFooter() {
       hint = `Looks like ${bird.B.name}? Next, check every pose.`;
     } else if (S.step === 3) {
       hint = `${bird.enabledPoses().length} poses will be rendered, plus one for when you carry ${bird.B.name}`;
+    } else {
+      next.textContent = 'Done';
     }
     $('#footHint').textContent = hint;
     return;
@@ -158,7 +160,7 @@ async function advance() {
       }
       goTo(4);
     } else {
-      location.reload();
+      window.close();
     }
     return;
   }
@@ -764,19 +766,16 @@ async function finishPackage(pkg) {
 
 // ---------- step 4: bring it to the desktop ----------
 function enterDesktop() {
-  const { manifest, bytes, totalFrames } = S.pkg;
+  const { manifest } = S.pkg;
   $('#pkgName').textContent = manifest.name;
   const facts = $('#pkgFacts');
   facts.innerHTML = '';
   const add = (k, v) => facts.append(el('dt', null, k), el('dd', null, v));
   const acts = manifest.actions.filter((a) => !a.system);
-  add('Actions', `${acts.length} + carrying pose`);
-  add('Animation', `${totalFrames} frames at ${manifest.fps} fps`);
+  add('Poses', `${acts.length}, plus one for carrying`);
   add('Personality', PERSONALITIES.find((p) => p.id === manifest.personality).name);
-  add('Coat', manifest.coat.label);
-  add('Package', `${(bytes.length / 1e6).toFixed(1)} MB · ${manifest.name}.companion`);
   $('#importDone').hidden = !S.imported;
-  $('#btnImport').textContent = S.imported ? 'Import again' : 'Import to desktop';
+  $('#btnImport').textContent = S.imported ? 'Add again' : 'Add to desktop';
 }
 
 function drawPkg(t) {
@@ -826,7 +825,7 @@ async function importBytes(bytes, fromStudio) {
       const done = $('#importDone');
       done.textContent = `${res.name} is on your desktop now. Look just above your taskbar!`;
       done.hidden = false;
-      $('#btnImport').textContent = 'Import again';
+      $('#btnImport').textContent = 'Add again';
     }
     toast(`${res.name} is on your desktop`);
     return res;
@@ -838,14 +837,6 @@ async function importBytes(bytes, fromStudio) {
 
 function initStep4() {
   $('#btnImport').onclick = () => importBytes(S.pkg.bytes, true);
-  $('#btnSave').onclick = async () => {
-    try {
-      const p = await api.savePackage(S.pkg.bytes, S.pkg.manifest.name);
-      if (p) toast(`Saved to ${p}`);
-    } catch (err) {
-      toast(cleanError(err), true);
-    }
-  };
 }
 
 // ---------- animation loop ----------
@@ -939,10 +930,6 @@ $('#btnBack').onclick = () => goTo(S.step - 1);
 $$('#stepper li').forEach((li) => {
   li.onclick = () => { const n = +li.dataset.step; if (n < S.step) goTo(n); };
 });
-$('#btnImportPkg').onclick = async () => {
-  const r = await api.pickAndImport();
-  if (r) toast(`${r.name} is on your desktop`);
-};
 goTo(1);
 requestAnimationFrame(loop);
 api.selftestInfo().then((info) => { if (info.on) selftest(info); });

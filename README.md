@@ -4,14 +4,12 @@
 
 ## Install (Windows)
 
-1. Download `Companion-win32-x64.zip` and `3nbr.companion` from the [Releases](../../releases) page.
-2. Unzip the folder anywhere and run `Companion.exe`.
+1. Download `Companion-win32-x64.zip` from the [latest release](../../releases/latest).
+2. Right-click it, choose **Extract All**, then open the new folder and run `Companion.exe`.
    The app isn't code-signed, so Windows may say "Windows protected your PC". Click **More info → Run anyway**.
-3. Add 3nbr to the desktop, either way:
-   - in the Studio, click **Import package…** and pick `3nbr.companion`, or
-   - click through the Studio's four steps and press **Import to desktop**.
+3. The 3nbr Studio opens. Click through its four steps and press **Add to desktop**.
 
-The paw icon in the system tray opens the Studio, imports packages, sets Companion to start with Windows, and quits.
+The paw icon in the system tray opens the Studio, sets 3nbr to start with Windows, and quits.
 
 ## 3nbr on the desktop
 
