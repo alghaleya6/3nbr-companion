@@ -1,0 +1,15 @@
+node_modules/
+dist/
+release/
+.selftest/
+.claude/
+*.map
+
+# Not shared: the owner's own photos, test screenshots and reference screenshots.
+assets/examples/
+assets/poses/3nbr/
+assets/poses/anbar/
+/*.png
+
+# Built package; attached to releases instead.
+assets/3nbr.companion

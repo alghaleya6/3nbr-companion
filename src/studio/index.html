@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Companion Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="studio.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="../../assets/icon.png" alt="">
+      <span>Companion Studio</span>
+    </div>
+    <ol class="stepper" id="stepper">
+      <li data-step="1"><span class="num">1</span><span class="label">Upload photo</span></li>
+      <li data-step="2"><span class="num">2</span><span class="label">Review the look</span></li>
+      <li data-step="3"><span class="num">3</span><span class="label">Movement poses</span></li>
+      <li data-step="4"><span class="num">4</span><span class="label">Bring to desktop</span></li>
+    </ol>
+    <button class="btn ghost small" id="btnImportPkg" title="Import a .companion file you saved earlier">Import package…</button>
+  </header>
+
+  <main id="main">
+    <!-- Step 1 -->
+    <section class="step" id="step1">
+      <div class="step-head">
+        <p class="eyebrow">Step 1 of 4</p>
+        <h1>Upload one clear photo</h1>
+        <p class="lede">Choose a readable reference, name your companion, and pick the actions it should know.</p>
+      </div>
+      <div class="type-switch" id="typeSwitch">
+        <button data-mode="bird"><strong>Lovebird poses</strong><span>13 AI-made poses of your bird, animated live</span></button>
+        <button data-mode="photo"><strong>Any pet, from one photo</strong><span>Cuts your pet out of a photo and animates it</span></button>
+      </div>
+
+      <div class="grid-upload mode-bird">
+        <div class="card">
+          <div class="card-head"><h3>Photos of your bird</h3><span class="muted small" id="birdPhotoCount"></span></div>
+          <label class="dropzone small-dz" id="birdDrop">
+            <input type="file" id="birdFiles" accept="image/png,image/jpeg,image/webp" multiple hidden>
+            <div class="dz-empty">
+              <strong>Drop photos of your bird</strong>
+              <span>or click to browse &middot; shown beside the poses to compare</span>
+            </div>
+          </label>
+          <div class="photo-strip" id="birdPhotos"></div>
+          <ul class="tips">
+            <li class="good">Well-lit, clear colours</li>
+            <li class="good">Wings and face visible</li>
+            <li class="bad">Avoid strong coloured light or heavy blur</li>
+          </ul>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <label class="field-label" for="birdName">Name your companion</label>
+            <input class="text" id="birdName" maxlength="24" placeholder="e.g. 3nbr" autocomplete="off">
+            <p class="field-label spaced">Personality</p>
+            <div class="chips" id="birdPersonality"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Poses</h3><span class="muted small" id="birdPoseCount"></span></div>
+            <p class="muted small">Look Around and Desktop Patrol are always included.</p>
+            <div class="pose-checklist" id="birdChecklist"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-upload mode-photo">
+        <div class="card photo-card">
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/bmp" hidden>
+            <div class="dz-empty" id="dzEmpty">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 34l10-12 8 9 6-7 8 10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="33" cy="15" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="4" y="6" width="40" height="36" rx="7" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>
+              <strong>Drop a photo of your pet</strong>
+              <span>or click to browse · JPG, PNG or WebP</span>
+            </div>
+            <img id="photoPreview" alt="Your photo" hidden>
+            <span class="dz-change" id="dzChange" hidden>Change photo</span>
+          </label>
+          <ul class="tips">
+            <li class="good">Well-lit, full-body or half-body</li>
+            <li class="good">Plain, uncluttered background</li>
+            <li class="good">Face, ears and tail clearly visible</li>
+            <li class="bad">Avoid blur, hands, toys or other pets in front</li>
+          </ul>
+          <button class="btn link" id="btnSample">No photo handy? Try the sample cat</button>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <label class="field-label" for="petName">Name your companion</label>
+            <input class="text" id="petName" maxlength="24" placeholder="e.g. Biscuit" autocomplete="off">
+            <p class="field-label spaced">Personality</p>
+            <div class="chips" id="personality"></div>
+            <p class="muted small" id="personaHint"></p>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Actions</h3>
+              <span class="muted small" id="actionCount"></span>
+            </div>
+            <p class="muted small">Published in the studio today. Rest and Walk are always included.</p>
+            <div id="catalog" class="catalog"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="step" id="step2" hidden>
+      <div class="step-head">
+        <p class="eyebrow">Step 2 of 4</p>
+        <h1>Review the look</h1>
+        <p class="lede">Check the face, coat, proportions and identity details. Drag a marker if anything is off.</p>
+      </div>
+      <div class="grid-look">
+        <div class="card stage-card">
+          <div class="stage-tools">
+            <div class="seg" id="toolSeg" role="tablist">
+              <button data-tool="markers" class="on">Markers</button>
+              <button data-tool="erase">Erase</button>
+              <button data-tool="restore">Restore</button>
+            </div>
+            <label class="inline" id="brushCtl" hidden>Brush
+              <input type="range" id="brushSize" min="4" max="70" value="22">
+            </label>
+            <span class="spacer"></span>
+            <label class="inline"><input type="checkbox" id="showPhoto"> Show original photo</label>
+            <button class="btn ghost small" id="btnRedetect">Re-detect</button>
+          </div>
+          <div class="stage" id="stage">
+            <div class="stage-inner" id="stageInner">
+              <canvas id="stageCanvas"></canvas>
+              <svg id="markers" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+          </div>
+          <div class="legend">
+            <span><i class="dot face"></i>Face</span>
+            <span><i class="dot ear"></i>Ears</span>
+            <span><i class="dot tail"></i>Tail</span>
+            <span class="muted" id="stageHint">Drag markers to adjust · the dashed line is the ground</span>
+          </div>
+        </div>
+
+        <div class="side">
+          <div class="card">
+            <div class="card-head"><h3>Face &amp; features</h3><span class="badge" id="faceBadge"></span></div>
+            <p class="field-label">Facing</p>
+            <div class="seg wide" id="facingSeg">
+              <button data-v="-1">Left</button><button data-v="0">Camera</button><button data-v="1">Right</button>
+            </div>
+            <div class="feature-row">
+              <div><strong>Ears</strong><span class="muted small" id="earStatus"></span></div>
+              <button class="btn ghost small" id="btnEars"></button>
+            </div>
+            <div class="feature-row">
+              <div><strong>Tail</strong><span class="muted small" id="tailStatus"></span></div>
+              <button class="btn ghost small" id="btnTail"></button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>Coat</h3><span class="badge" id="coatPattern"></span></div>
+            <div class="swatches" id="swatches"></div>
+            <p class="small" id="coatLabel"></p>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>Proportions</h3><span class="muted small" id="propSummary"></span></div>
+            <label class="field-label" for="headScale">Head size <span class="muted" id="headScaleVal"></span></label>
+            <input type="range" id="headScale" min="0.85" max="1.4" step="0.01" value="1">
+            <p class="field-label spaced">Moves like</p>
+            <div class="seg wide" id="styleSeg">
+              <button data-v="walk">Walks on four legs</button><button data-v="hop">Hops</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>Identity</h3><span class="muted small" id="liveLabel"></span></div>
+            <div class="identity">
+              <canvas class="live" id="liveCanvas"></canvas>
+              <dl class="facts" id="facts"></dl>
+            </div>
+          </div>
+
+          <div class="card checks">
+            <div class="card-head"><h3>Photo check</h3></div>
+            <ul id="warnings" class="warnings"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2 (lovebird) -->
+    <section class="step" id="step2b" hidden>
+      <div class="step-head">
+        <p class="eyebrow">Step 2 of 4</p>
+        <h1>Review the look</h1>
+        <p class="lede">Check the face, coat, proportions and identity against your own photos before the poses are animated.</p>
+      </div>
+      <div class="grid-look">
+        <div class="card">
+          <div class="preview-grid" id="lookPreviews"></div>
+        </div>
+        <div class="side">
+          <div class="card">
+            <div class="card-head"><h3>Your photos</h3></div>
+            <p class="muted small" id="pickHint"></p>
+            <div class="photo-strip" id="pickPhotos"></div>
+            <ul class="tips">
+              <li class="good">Face: white, with a thin grey eye ring</li>
+              <li class="good">Beak and feet: pale pink</li>
+              <li class="good">Coat: white body, lavender-blue wings and back</li>
+              <li class="good">Proportions: compact, short tail</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-head"><h3>Identity</h3></div>
+            <dl class="facts" id="birdFacts"></dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3 (lovebird) -->
+    <section class="step" id="step3b" hidden>
+      <div class="step-head">
+        <p class="eyebrow">Step 3 of 4</p>
+        <h1>Review movement poses</h1>
+        <p class="lede" id="birdPosesLede">See how your companion rests, looks at you and moves before the final animation is rendered.</p>
+      </div>
+      <div class="pose-cards" id="poseCards"></div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="step" id="step3" hidden>
+      <div class="step-head">
+        <p class="eyebrow">Step 3 of 4</p>
+        <h1>Review movement poses</h1>
+        <p class="lede" id="posesLede">See how your companion rests, looks at you and moves before the final animation is rendered.</p>
+      </div>
+      <div id="poseGroups"></div>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="step" id="step4" hidden>
+      <div class="step-head">
+        <p class="eyebrow">Step 4 of 4</p>
+        <h1>Bring it to the desktop</h1>
+        <p class="lede">Your Companion package is ready. Import it through the client for Windows and it appears on your desktop.</p>
+      </div>
+      <div class="grid-final">
+        <div class="card pkg-card">
+          <div class="pkg-preview">
+            <canvas id="pkgCanvas"></canvas>
+            <span class="pkg-action" id="pkgAction"></span>
+          </div>
+          <div class="pkg-meta">
+            <p class="eyebrow">Companion package</p>
+            <h2 id="pkgName"></h2>
+            <dl class="facts" id="pkgFacts"></dl>
+            <div class="pkg-buttons">
+              <button class="btn primary big" id="btnImport">Import to desktop</button>
+              <button class="btn ghost" id="btnSave">Save .companion file…</button>
+            </div>
+            <p class="success" id="importDone" hidden></p>
+          </div>
+        </div>
+        <div class="card how-card">
+          <h3>On your desktop</h3>
+          <ul class="how mode-photo">
+            <li><b>Click</b><span>a happy bounce</span></li>
+            <li><b>Double-click</b><span>a jump</span></li>
+            <li><b>Drag</b><span>pick it up and drop it anywhere</span></li>
+            <li><b>Hover</b><span>it looks at you</span></li>
+          </ul>
+          <ul class="how mode-bird">
+            <li><b>Click</b><span>a little kiss</span></li>
+            <li><b>Double-click</b><span>disco time</span></li>
+            <li><b>Stroke</b><span>move the cursor back and forth over it for head pats</span></li>
+            <li><b>Near the beak</b><span>feisty pecks at your cursor</span></li>
+            <li><b>Typing</b><span>it types along with you</span></li>
+            <li><b>Drag</b><span>pick it up; it flutters down when you let go</span></li>
+          </ul>
+          <ul class="how">
+            <li><b>Right-click</b><span>size, follow my cursor, tricks</span></li>
+            <li><b>Tray icon</b><span>open Studio, import, start with Windows</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="actionbar">
+    <button class="btn ghost" id="btnBack">Back</button>
+    <span class="foot-hint" id="footHint"></span>
+    <button class="btn primary" id="btnNext">Continue</button>
+  </footer>
+
+  <div class="modal" id="busy" hidden>
+    <div class="modal-card">
+      <div class="spinner"></div>
+      <h3 id="busyTitle">Working…</h3>
+      <p class="muted" id="busyText"></p>
+      <div class="bar"><div id="busyBar"></div></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" hidden></div>
+
+  <script type="module" src="../../dist/studio.js"></script>
+</body>
+</html>
