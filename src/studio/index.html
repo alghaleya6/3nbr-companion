@@ -13,7 +13,7 @@
       <span>Companion Studio</span>
     </div>
     <ol class="stepper" id="stepper">
-      <li data-step="1"><span class="num">1</span><span class="label">Upload photo</span></li>
+      <li data-step="1"><span class="num">1</span><span class="label">Meet 3nbr</span></li>
       <li data-step="2"><span class="num">2</span><span class="label">Review the look</span></li>
       <li data-step="3"><span class="num">3</span><span class="label">Movement poses</span></li>
       <li data-step="4"><span class="num">4</span><span class="label">Bring to desktop</span></li>
@@ -26,43 +26,22 @@
     <section class="step" id="step1">
       <div class="step-head">
         <p class="eyebrow">Step 1 of 4</p>
-        <h1>Upload one clear photo</h1>
-        <p class="lede">Choose a readable reference, name your companion, and pick the actions it should know.</p>
-      </div>
-      <div class="type-switch" id="typeSwitch">
-        <button data-mode="bird"><strong>Lovebird poses</strong><span>13 AI-made poses of your bird, animated live</span></button>
-        <button data-mode="photo"><strong>Any pet, from one photo</strong><span>Cuts your pet out of a photo and animates it</span></button>
+        <h1>Meet 3nbr</h1>
+        <p class="lede">A white lovebird for your desktop. Name him, pick his personality, and choose the poses he should know.</p>
       </div>
 
       <div class="grid-upload mode-bird">
         <div class="card">
-          <div class="card-head"><h3>Photos of your bird</h3><span class="muted small" id="birdPhotoCount"></span></div>
-          <label class="dropzone small-dz" id="birdDrop">
-            <input type="file" id="birdFiles" accept="image/png,image/jpeg,image/webp" multiple hidden>
-            <div class="dz-empty">
-              <strong>Drop photos of your bird</strong>
-              <span>or click to browse &middot; shown beside the poses to compare</span>
-            </div>
-          </label>
-          <div class="photo-strip" id="birdPhotos"></div>
-          <ul class="tips">
-            <li class="good">Well-lit, clear colours</li>
-            <li class="good">Wings and face visible</li>
-            <li class="bad">Avoid strong coloured light or heavy blur</li>
-          </ul>
+          <img class="meet-pic" src="../../assets/poses/ai/cut/look.png" alt="3nbr perched on a branch">
+          <label class="field-label" for="birdName">Name</label>
+          <input class="text" id="birdName" maxlength="24" placeholder="e.g. 3nbr" autocomplete="off">
+          <p class="field-label spaced">Personality</p>
+          <div class="chips" id="birdPersonality"></div>
         </div>
-        <div class="stack">
-          <div class="card">
-            <label class="field-label" for="birdName">Name your companion</label>
-            <input class="text" id="birdName" maxlength="24" placeholder="e.g. 3nbr" autocomplete="off">
-            <p class="field-label spaced">Personality</p>
-            <div class="chips" id="birdPersonality"></div>
-          </div>
-          <div class="card">
-            <div class="card-head"><h3>Poses</h3><span class="muted small" id="birdPoseCount"></span></div>
-            <p class="muted small">Look Around and Desktop Patrol are always included.</p>
-            <div class="pose-checklist" id="birdChecklist"></div>
-          </div>
+        <div class="card">
+          <div class="card-head"><h3>Poses</h3><span class="muted small" id="birdPoseCount"></span></div>
+          <p class="muted small">Look Around and Desktop Patrol are always included.</p>
+          <div class="pose-checklist" id="birdChecklist"></div>
         </div>
       </div>
 
@@ -197,7 +176,7 @@
       <div class="step-head">
         <p class="eyebrow">Step 2 of 4</p>
         <h1>Review the look</h1>
-        <p class="lede">Check the face, coat, proportions and identity against your own photos before the poses are animated.</p>
+        <p class="lede">Check 3nbr's face, coat and proportions before the poses are animated.</p>
       </div>
       <div class="grid-look">
         <div class="card">
@@ -205,9 +184,7 @@
         </div>
         <div class="side">
           <div class="card">
-            <div class="card-head"><h3>Your photos</h3></div>
-            <p class="muted small" id="pickHint"></p>
-            <div class="photo-strip" id="pickPhotos"></div>
+            <div class="card-head"><h3>3nbr's look</h3></div>
             <ul class="tips">
               <li class="good">Face: white, with a thin grey eye ring</li>
               <li class="good">Beak and feet: pale pink</li>

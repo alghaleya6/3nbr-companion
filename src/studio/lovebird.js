@@ -1,4 +1,4 @@
-// Studio track for the lovebird pose pack: name + photos -> AI look -> live pose cards -> package.
+// Studio track for 3nbr's pose pack: name -> AI look -> live pose cards -> package.
 import { LOVEBIRD_POSES } from '../shared/lovebirdPoses.js';
 import { PERSONALITIES, FPS } from '../shared/actions.js';
 import { drawEffect } from '../shared/effects.js';
@@ -11,7 +11,6 @@ export function createLovebird({ getRenderer, $, el, dpr, onChange }) {
     name: '3nbr',
     personality: 'playful',
     enabled: new Set(LOVEBIRD_POSES.map((p) => p.id)),
-    photos: [],
     cuts: null,
     previews: new Map(),
     cards: [],
@@ -44,32 +43,6 @@ export function createLovebird({ getRenderer, $, el, dpr, onChange }) {
     $('#birdPoseCount').textContent = `${enabledPoses().length} of ${LOVEBIRD_POSES.length} selected`;
   }
 
-  function renderPhotos() {
-    $('#birdPhotoCount').textContent = B.photos.length ? `${B.photos.length} added` : 'Optional';
-    for (const sel of ['#birdPhotos', '#pickPhotos']) {
-      const strip = $(sel);
-      strip.innerHTML = '';
-      for (const ph of B.photos) {
-        const img = el('img');
-        img.src = ph.url;
-        img.alt = 'Photo of your bird';
-        strip.append(img);
-      }
-    }
-    $('#pickHint').textContent = B.photos.length
-      ? 'Your photos, for comparing the face, coat and proportions.'
-      : 'Add photos in step 1 to compare them here.';
-  }
-
-  async function addPhotos(files) {
-    for (const f of files) {
-      if (!f.type.startsWith('image/')) continue;
-      const url = URL.createObjectURL(f);
-      B.photos.push({ url });
-    }
-    renderPhotos();
-  }
-
   function init() {
     const pbox = $('#birdPersonality');
     for (const p of PERSONALITIES) {
@@ -85,18 +58,7 @@ export function createLovebird({ getRenderer, $, el, dpr, onChange }) {
     const nameInput = $('#birdName');
     nameInput.value = B.name;
     nameInput.addEventListener('input', () => { B.name = nameInput.value.trim(); onChange(); });
-    $('#birdFiles').addEventListener('change', (e) => { addPhotos([...e.target.files]); e.target.value = ''; });
-    const dz = $('#birdDrop');
-    dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('drag'); });
-    dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
-    dz.addEventListener('drop', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      dz.classList.remove('drag');
-      addPhotos([...e.dataTransfer.files]);
-    });
     renderChecklist();
-    renderPhotos();
   }
 
   const enabledPoses = () => LOVEBIRD_POSES.filter((p) => p.required || B.enabled.has(p.id));
@@ -142,7 +104,6 @@ export function createLovebird({ getRenderer, $, el, dpr, onChange }) {
 
   // ---------- step 2 ----------
   function enterLook() {
-    renderPhotos();
     const grid = $('#lookPreviews');
     grid.innerHTML = '';
     B.lookTiles = LOOK_PREVIEWS.map((id) => {

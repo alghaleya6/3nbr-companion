@@ -47,7 +47,6 @@ const bird = createLovebird({ getRenderer, $, el, dpr, onChange: () => { S.dirty
 function setMode(mode) {
   S.mode = mode;
   document.body.classList.toggle('mode-bird', mode === 'bird');
-  $$('#typeSwitch button').forEach((b) => b.classList.toggle('on', b.dataset.mode === mode));
   S.dirty = true;
   updateFooter();
 }
@@ -256,11 +255,13 @@ async function handleFiles(files) {
   if (!f) return;
   if (/\.companion$/i.test(f.name)) {
     await importBytes(new Uint8Array(await f.arrayBuffer()), false);
-  } else if (f.type.startsWith('image/')) {
+  } else if (f.type.startsWith('image/') && S.mode === 'photo') {
     if (S.step !== 1) goTo(1);
     setPhoto(f);
-  } else {
+  } else if (S.mode === 'photo') {
     toast('That file type isn’t supported. Use a JPG, PNG or WebP photo.', true);
+  } else {
+    toast('Drop a .companion file here to import it.', true);
   }
 }
 
@@ -932,7 +933,6 @@ initStep1();
 initStep2();
 initStep4();
 bird.init();
-$$('#typeSwitch button').forEach((b) => { b.onclick = () => setMode(b.dataset.mode); });
 setMode('bird');
 $('#btnNext').onclick = onNext;
 $('#btnBack').onclick = () => goTo(S.step - 1);
