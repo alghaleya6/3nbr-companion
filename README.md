@@ -1,6 +1,6 @@
-# Companion
+# 3nbr Companion
 
-An animated pet that lives on your Windows desktop. It ships with **3nbr**, a white lovebird with 13 live poses, and can also turn one photo of any pet into a companion.
+**3nbr**, a white lovebird, living on your Windows desktop: 13 live poses, and he reacts to your clicks, your cursor and your typing.
 
 ## Install (Windows)
 
@@ -9,7 +9,7 @@ An animated pet that lives on your Windows desktop. It ships with **3nbr**, a wh
    The app isn't code-signed, so Windows may say "Windows protected your PC". Click **More info → Run anyway**.
 3. Add 3nbr to the desktop, either way:
    - in the Studio, click **Import package…** and pick `3nbr.companion`, or
-   - click through the Studio's four steps with **Lovebird poses** selected and press **Import to desktop**.
+   - click through the Studio's four steps and press **Import to desktop**.
 
 The paw icon in the system tray opens the Studio, imports packages, sets Companion to start with Windows, and quits.
 
@@ -28,17 +28,6 @@ The paw icon in the system tray opens the Studio, imports packages, sets Compani
 On his own he looks around, patrols the taskbar, has snacks, naps in his bed, stretches, preens, tucks in for a nap and scrolls on his phone.
 
 The typing reaction uses a global keyboard listener that only notices *that* a key was pressed, never which key. Nothing is sent anywhere.
-
-## Making a companion from a photo
-
-Pick **Any pet, from one photo** in the Studio:
-
-1. **Upload one clear photo.** Well-lit, full or half body, plain background. Name your companion, choose a personality and its actions.
-2. **Review the look.** The Studio cuts your pet out and marks the face, ears and tail. Drag a marker if it's off, or use Erase / Restore on the cutout.
-3. **Review movement poses.** Every selected action plays live. Switch off any you don't like, then render.
-4. **Bring it to the desktop.** **Import to desktop**, or **Save .companion file…** to keep or share it.
-
-The first photo downloads the background-removal model (about 100 MB) from IMG.LY's CDN and caches it in `%APPDATA%\Companion\model-cache`. Photos are processed on your PC and never uploaded.
 
 ## Running from source
 
